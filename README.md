@@ -35,17 +35,24 @@
 
 # List of main functions
 1: shared_supporting_functions             usually abbreviated as TA_sh
+
 2: plot_TA_matrix                          usually abbreviated as TA_plt
+
 3: merge_TA_matrices                       usually abbreviated as TA_mrg
+
 4: t0_correction_and_background_removal    usually abbreviated as TA_t0
 
 
 List of Shared Supporting Functions, with modules named as above.
 
 1: TA_sh.create_TA_Blue_White_Red_colormap(min_max)
+
 2: TA_sh.create_TA_Blue_White_Red_Black_colormap(min_max)
+
 3: TA_sh.list_hdf5_contents(HDF5_filename)
+
 4: TA_sh.load_hdf5_data(filename,dataset_path_string)
+
 
 
 
