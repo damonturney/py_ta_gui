@@ -1,0 +1,7 @@
+*                                    * means "everyhting", thus this line means "ignore everything"
+!.gitattributes                      ! means "don't",  thus this line means "don't ignore .gitattributes"
+!.gitignore                          means "don't ignore .gitignore"
+!.md                                 don't ignore the README.md file
+!*.py                                don't ignore all files that end with .py
+!versions.txt                        don't ignore versions.txt
+!*/                                  don't ignore all subdirectories, but inside each subdirectory all other gitignore rules are applied
