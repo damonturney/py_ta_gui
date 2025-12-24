@@ -52,7 +52,7 @@ class TA_merge_matrix_GUI_main_Window(QMainWindow):    #This nomenclature causes
         self.dpi = QApplication.primaryScreen().logicalDotsPerInch() #Get screen DPI
         window_taller_factor = 1.2
         self.window_width_inches = 15
-        self.window_height_inches = 10.5 * window_taller_factor
+        self.window_height_inches = 10.8 * window_taller_factor
         self.resize(int(self.window_width_inches * self.dpi), int(self.window_height_inches * self.dpi))  # Width, Height in pixels (converted from inches)
 
         # Create the main pyqt5 object (Qwidget) and then create the geometric layout that will hold a LHS box (for the matplotlib stuff) and RHS box (for the pyqt5 Controls).

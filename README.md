@@ -1,5 +1,5 @@
 # pyTAgui
-A python, QT, and Tkinter based GUI for transient absorption processing.
+A python, matplotlib, and QT based GUI for transient absorption processing.
 
 # Installation
 1: Install python preferably via anaconda (e.g. miniconda) 
