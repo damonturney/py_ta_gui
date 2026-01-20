@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyTAgui"
+version = "1.0.4"
+description = "A python, matplotlib, and QT based GUI for transient absorption processing."
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+  {name = "Damon Turney", email = "damonturney@gmail.com"}
+]
+keywords = ["data analysis", "transient absorption"] # Add relevant tags
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+]
+
+# usage: pip install your-package-name
+dependencies = [
+  "numpy>=1.21.0",
+  "pandas",
+  "requests"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/damonturney/pyTAgui"
+"Bug Tracker" = "https://github.com/damonturney/pyTAgui/issues"
+
+# Optional: If you want to include data files inside your package
+[tool.setuptools.package-data]
+"pyTAgui" = ["*.json", "*.txt"]

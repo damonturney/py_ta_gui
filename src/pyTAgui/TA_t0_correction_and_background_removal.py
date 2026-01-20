@@ -25,7 +25,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationTool
 from matplotlib.figure import Figure
 
 # Import the shared functions and classes
-import shared_functions_classes as TA_sh
+import src.pyTAgui.shared_functions_classes as TA_sh
 
 
 # TA_data are assumed to be 2D matrices with wavelengths along the 1st row, and with probe delay times along the 1st column

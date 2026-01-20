@@ -23,7 +23,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationTool
 from matplotlib.figure import Figure
 
 # Import the shared functions and classes
-import shared_functions_classes as TA_sh
+import src.pyTAgui.shared_functions_classes as TA_sh
 
 
 # TA_data are assumed to be 2D matrices with wavelengths along the 1st row, and with probe delay times along the 1st column
@@ -244,6 +244,7 @@ class TA_merge_matrix_GUI_main_Window(QMainWindow):    #This nomenclature causes
         self.canvas.draw()
 
         
+
     def zero_probe_counts(self):                                                                                        #Callback for Zero Out Counts Button. Zeroes out probe counts in the range specified by the QLineEdit.
         try:
             w_range = [float(self.txt_zero_range_min.text()) , float(self.txt_zero_range_max.text())]
@@ -315,7 +316,7 @@ class TA_merge_matrix_GUI_main_Window(QMainWindow):    #This nomenclature causes
                     print(f'Merging {next_filename} (No interpolation needed)...')
                     merged_TA_data[1:,1:] += next_TA_matrix[1:,1:] * self.fraction_in_merge_each_probe_spectrum[i,:]
             try:
-                output_filename = list_of_TA_matrix_filenames[0]+'.merged.csv'
+                output_filename = self.TA_matrix_input_filenames[0]+'.merged.csv'
                 np.savetxt(output_filename, merged_TA_data, delimiter=',')
                 self.status_bar.showMessage(f"Merge Complete! Saved to {output_filename}")
                 print(f'File saved: {output_filename}')
@@ -357,16 +358,16 @@ class Custom_QT5_Toolbar(NavigationToolbar2QT):
 
 # For Matt Sfeirs TA beamline the hdf5 files hold the probe counts in 'Spectra/Sweep_0_Probe_Spectrum'
 # For the Astrella TA system the probe counts are located in 
-def create_merge_ratio_between_2_TA_probe_Matrices(TA_probe1_counts_filename, TA_probe2_counts_filename, probe1_blackout, probe2_blackout):
+def create_merge_ratio_between_2_TA_probe_Matrices(TA_probe1_counts_filename, TA_probe2_counts_filename, final_interpolated_wavelengths, probe1_blackout, probe2_blackout):
     # Obtain the probe counts for the probe1 
-    blue_probe_counts = np.flip( TA_sh.load_hdf5_data(Sfeir_TA_blue_spectrum_hdf5_filename,'Spectra/Sweep_0_Probe_Spectrum') )                     #Obtain the blue probe spectrum 
-    blue_probe_wavelengths = np.flip( TA_sh.load_hdf5_data(Sfeir_TA_blue_spectrum_hdf5_filename,'Average')[0,1:] )
+    blue_probe_counts = np.flip( TA_sh.load_hdf5_data(TA_probe1_counts_filename,'Spectra/Sweep_0_Probe_Spectrum') )                     #Obtain the blue probe spectrum 
+    blue_probe_wavelengths = np.flip( TA_sh.load_hdf5_data(TA_probe1_counts_filename,'Average')[0,1:] )
     spline_interpolator = CubicSpline(blue_probe_wavelengths, blue_probe_counts, extrapolate = True)
     blue_probe_counts_interpolated = spline_interpolator(final_interpolated_wavelengths)
 
     # Obtain the probe counts for the red spectrum
-    red_probe_counts = np.flip( TA_sh.load_hdf5_data(Sfeir_TA_red_spectrum_hdf5_filename,'Spectra/Sweep_0_Probe_Spectrum') )                     #Obtain the red probe spectrum
-    red_probe_wavelengths = np.flip( TA_sh.load_hdf5_data(Sfeir_TA_red_spectrum_hdf5_filename,'Average')[0,1:] )
+    red_probe_counts = np.flip( TA_sh.load_hdf5_data(TA_probe2_counts_filename,'Spectra/Sweep_0_Probe_Spectrum') )                     #Obtain the red probe spectrum
+    red_probe_wavelengths = np.flip( TA_sh.load_hdf5_data(TA_probe2_counts_filename,'Average')[0,1:] )
     spline_interpolator = CubicSpline(red_probe_wavelengths, red_probe_counts, extrapolate = True)
     red_probe_counts_interpolated = spline_interpolator(final_interpolated_wavelengths)
 
@@ -388,6 +389,7 @@ def handle_exception(exc_type, exc_value, exc_traceback):
     sys.__excepthook__(exc_type, exc_value, exc_traceback)
 
 sys.excepthook = handle_exception
+
 
 
 if __name__ == "__main__":       # This line is asking: "Is this file the one that started the process?"  We can have only one QApplication instance per process, so we need to ensure this is the main file.

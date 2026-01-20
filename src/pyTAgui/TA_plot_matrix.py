@@ -22,7 +22,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationTool
 from matplotlib.figure import Figure
 
 # Import the shared functions and classes
-import shared_functions_classes as TA_sh
+import src.pyTAgui.shared_functions_classes as TA_sh
 
 
 class TA_plot_matrix_app():   
